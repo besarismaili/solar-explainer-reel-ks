@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="sq">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Përse kosovarët po kalojnë në energji diellore</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      background: #141311;
+      color: #f4f1ea;
+      font-family: system-ui, -apple-system, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .player {
+      position: relative;
+      height: min(94vh, 1080px);
+      aspect-ratio: 9 / 16;
+      background: #000;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.65);
+      border: 1px solid rgba(244, 241, 234, 0.14);
+    }
+    video {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+      cursor: pointer;
+    }
+    .toggle {
+      position: absolute;
+      bottom: 18px;
+      right: 18px;
+      background: rgba(20, 19, 17, 0.82);
+      color: #fff200;
+      border: 1.5px solid #fff200;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <main class="player">
+    <video id="reel" src="./reel.mp4" playsinline preload="auto" controls></video>
+    <button id="btn" class="toggle" type="button" aria-label="Luaj ose ndal">Luaj</button>
+  </main>
+  <script>
+    const v = document.getElementById('reel');
+    const b = document.getElementById('btn');
+    const sync = () => { b.textContent = v.paused ? 'Luaj' : 'Pauzë'; };
+    const toggle = () => { v.paused ? v.play() : v.pause(); };
+    b.addEventListener('click', toggle);
+    v.addEventListener('play', sync);
+    v.addEventListener('pause', sync);
+    v.addEventListener('ended', sync);
+    sync();
+  </script>
+</body>
+</html>
